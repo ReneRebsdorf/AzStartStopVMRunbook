@@ -15,8 +15,8 @@ Param(
 )
  
 # Authenticate with your Automation Account
-#$Conn = Get-AutomationConnection -Name AzureRunAsConnection
-#Add-AzAccount -ServicePrincipal -Tenant $Conn.TenantID -ApplicationID $Conn.ApplicationID -CertificateThumbprint $Conn.CertificateThumbprint
+$Conn = Get-AutomationConnection -Name AzureRunAsConnection
+Add-AzAccount -ServicePrincipal -Tenant $Conn.TenantID -ApplicationID $Conn.ApplicationID -CertificateThumbprint $Conn.CertificateThumbprint
  
 # Split VMNames String into Array if multiple VMNames are provided 
 if ($VMNames.Contains(",")) {
@@ -33,11 +33,11 @@ foreach ($VMName in $VMNamesArr) {
     Write-Verbose "Performing action $VMAction on $VMName in RG: $ResourceGroupName"
     switch ($VMAction) {
         "Startup" {
-            #Start-AzVM -Name $VmName -ResourceGroupName $ResourceGroupName 
+            Start-AzVM -Name $VmName -ResourceGroupName $ResourceGroupName 
             break
         }
         "Shutdown" { 
-            #Stop-AzVM -Name $VmName -ResourceGroupName $ResourceGroupName -Force 
+            Stop-AzVM -Name $VmName -ResourceGroupName $ResourceGroupName -Force 
             break
         }
         Default { 
